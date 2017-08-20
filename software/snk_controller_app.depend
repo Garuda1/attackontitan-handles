@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1501921706 source:d:\documents\programming\snk_controller_app\rs232.c
+	"rs232.h"
+
+1501921664 d:\documents\programming\snk_controller_app\rs232.h
+	<stdio.h>
+	<string.h>
+	<termios.h>
+	<sys/ioctl.h>
+	<unistd.h>
+	<fcntl.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<limits.h>
+	<sys/file.h>
+	<errno.h>
+	<windows.h>
+
+1503228521 source:d:\documents\programming\snk_controller_app\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdint.h>
+	<windows.h>
+	"rs232.h"
+
