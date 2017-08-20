@@ -33,7 +33,7 @@
 #define DEVICE_BITRATE     9600
 #define DEVICE_SERIALMODE  "8N1"
 
-#define MSG_NOPORT "No serial port was provided\n"
+#define MSG_SYNTAX "Syntax: snkapp [port] [baudrate] [mode]\nExample:\n  snkapp COM5 9600 8N1\n"
 #define MSG_CONNECTIONSUCCESS "Successfully connected to %s (%d bauds, %s)\n"
 #define MSG_CONNECTIONFAILURE "Failed to connect to %s (%d bauds, %s)\n"
 
@@ -60,13 +60,19 @@ void release_key(const uint8_t key)
   keybd_event(key, 0x9e, KEYEVENTF_KEYUP, 0);
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
   uint8_t port;
   uint8_t data; //Data recovered from the device
 
-  port = RS232_GetPortnr(DEVICE_PORT);
-  if (RS232_OpenComport(port, DEVICE_BITRATE, DEVICE_SERIALMODE) == 1)
+  if (argc != 4)
+  {
+    fprintf(stderr, MSG_SYNTAX);
+    return (EXIT_FAILURE);
+  }
+
+  port = RS232_GetPortnr(argv[1]);
+  if (RS232_OpenComport(port, atoi(argv[2]), argv[3]) == 1)
     printf(MSG_CONNECTIONSUCCESS, DEVICE_PORT, DEVICE_BITRATE, DEVICE_SERIALMODE);
   else
     fprintf(stderr, MSG_CONNECTIONFAILURE, DEVICE_PORT, DEVICE_BITRATE, DEVICE_SERIALMODE);
