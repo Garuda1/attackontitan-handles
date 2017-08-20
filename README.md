@@ -1,6 +1,6 @@
-Attack on Titan - Fan made sword handles
+#Attack on Titan - Fan made sword handles
 
-#What is this?
+##What is this?
 
 In [Attack on Titan](http://i.imgur.com/i5s0Rew.jpg), the army uses a special gear called the 3DMG. Some games provide the full 3DMG experience by letting the player fight titans as a soldier. Unfortunately, while the games really capture the universe's feelings, the 3DMG controls are extremely simplified to allow everyone to easily play. This software + hardware pack exists to fix this issue.
 
