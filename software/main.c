@@ -30,10 +30,12 @@
 #define CTRL_BLADE_RELEASED_R 0x14 //Reload the right blade
 
 #define DEVICE_PORT        "COM5"
-#define DEVICE_BITRATE     115200
+#define DEVICE_BITRATE     9600
 #define DEVICE_SERIALMODE  "8N1"
 
 #define MSG_NOPORT "No serial port was provided\n"
+#define MSG_CONNECTIONSUCCESS "Successfully connected to %s (%d bauds, %s)\n"
+#define MSG_CONNECTIONFAILURE "Failed to connect to %s (%d bauds, %s)\n"
 
 /* Keys used in Guedin's Attack on Titan Fan Game */
 #define KEY_FIRELEFTHOOK  'L'
@@ -60,11 +62,14 @@ void release_key(const uint8_t key)
 
 int main(void)
 {
-  int port;
+  uint8_t port;
   uint8_t data; //Data recovered from the device
 
-  port = RS232_OpenComport(RS232_GetPortnr(DEVICE_PORT), DEVICE_BITRATE, DEVICE_SERIALMODE);
-  printf("Successfully connected to %s (%d bauds, %s)\n", DEVICE_PORT, DEVICE_BITRATE, DEVICE_SERIALMODE);
+  port = RS232_GetPortnr(DEVICE_PORT);
+  if (RS232_OpenComport(port, DEVICE_BITRATE, DEVICE_SERIALMODE) == 1)
+    printf(MSG_CONNECTIONSUCCESS, DEVICE_PORT, DEVICE_BITRATE, DEVICE_SERIALMODE);
+  else
+    fprintf(stderr, MSG_CONNECTIONFAILURE, DEVICE_PORT, DEVICE_BITRATE, DEVICE_SERIALMODE);
 
   for (;;)
   {

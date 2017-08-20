@@ -10,7 +10,7 @@
 #define FHOOK_R 42 //Hook action (fire or retract the hook) (right controller)
 #define BLADE_R 43 //Blade action (reloads the blades) (right controller)
 
-#define SERIAL_BITRATE 115200 //The serial baudrate used. Must match that of the computer's program.
+#define SERIAL_BITRATE 9600 //The serial baudrate used. Must match that of the computer's program.
 
 #define MSG_BOOTING "Device booting...\n"
 #define MSG_LCTINIT "Initializing the left controller...\n"
