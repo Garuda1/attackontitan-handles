@@ -29,13 +29,9 @@
 #define CTRL_CHOOK_RELEASED_R 0x13 //Stop coiling up the right hook
 #define CTRL_BLADE_RELEASED_R 0x14 //Reload the right blade
 
-#define DEVICE_PORT        "COM5"
-#define DEVICE_BITRATE     9600
-#define DEVICE_SERIALMODE  "8N1"
-
 #define MSG_SYNTAX "Syntax: snkapp [port] [baudrate] [mode]\nExample:\n  snkapp COM5 9600 8N1\n"
-#define MSG_CONNECTIONSUCCESS "Successfully connected to %s (%d bauds, %s)\n"
-#define MSG_CONNECTIONFAILURE "Failed to connect to %s (%d bauds, %s)\n"
+#define MSG_CONNECTIONSUCCESS "Successfully connected to %s (%s bauds, %s)\n"
+#define MSG_CONNECTIONFAILURE "Failed to connect to %s (%s bauds, %s)\n"
 
 /* Keys used in Guedin's Attack on Titan Fan Game */
 #define KEY_FIRELEFTHOOK  'L'
@@ -73,9 +69,9 @@ int main(int argc, char **argv)
 
   port = RS232_GetPortnr(argv[1]);
   if (RS232_OpenComport(port, atoi(argv[2]), argv[3]) == 1)
-    printf(MSG_CONNECTIONSUCCESS, DEVICE_PORT, DEVICE_BITRATE, DEVICE_SERIALMODE);
+    printf(MSG_CONNECTIONSUCCESS, argv[1], argv[2], argv[3]);
   else
-    fprintf(stderr, MSG_CONNECTIONFAILURE, DEVICE_PORT, DEVICE_BITRATE, DEVICE_SERIALMODE);
+    fprintf(stderr, MSG_CONNECTIONFAILURE, argv[1], argv[2], argv[3]);
 
   for (;;)
   {
@@ -85,74 +81,74 @@ int main(int argc, char **argv)
     switch (data)
     {
       case CTRL_XAXIS_PRESSED_L:
-        printf("[%s] Left handle: upper trigger pressed\n", DEVICE_PORT);
+        printf("[%s] Left handle: upper trigger pressed\n", argv[1]);
         break;
       case CTRL_ZAXIS_PRESSED_L:
-        printf("[%s] Left handle: lower trigger pressed\n", DEVICE_PORT);
+        printf("[%s] Left handle: lower trigger pressed\n", argv[1]);
         break;
       case CTRL_FHOOK_PRESSED_L:
-        printf("[%s] Left handle: lever pulled (hook fired)\n", DEVICE_PORT);
+        printf("[%s] Left handle: lever pulled (hook fired)\n", argv[1]);
         press_key(VkKeyScanA(KEY_FIRELEFTHOOK));
         break;
       case CTRL_CHOOK_PRESSED_L:
-        printf("[%s] Left handle: lever pulled\n", DEVICE_PORT);
+        printf("[%s] Left handle: lever pulled (coiling up the wires)\n", argv[1]);
         press_key(VK_SPACE);
         break;
       case CTRL_BLADE_PRESSED_L:
-        printf("[%s] Left handle: blade button pressed\n", DEVICE_PORT);
+        printf("[%s] Left handle: blade button pressed\n", argv[1]);
         break;
       case CTRL_XAXIS_PRESSED_R:
-        printf("[%s] Right handle: upper trigger pressed\n", DEVICE_PORT);
+        printf("[%s] Right handle: upper trigger pressed\n", argv[1]);
         break;
       case CTRL_ZAXIS_PRESSED_R:
-        printf("[%s] Right handle: lower trigger pressed\n", DEVICE_PORT);
+        printf("[%s] Right handle: lower trigger pressed\n", argv[1]);
         break;
       case CTRL_FHOOK_PRESSED_R:
-        printf("[%s] Right handle: lever pulled (hook fired)\n", DEVICE_PORT);
+        printf("[%s] Right handle: lever pulled (hook fired)\n", argv[1]);
         press_key(VkKeyScan(KEY_FIRERIGHTHOOK));
         break;
       case CTRL_CHOOK_PRESSED_R:
-        printf("[%s] Right handle: lever pulled\n", DEVICE_PORT);
+        printf("[%s] Right handle: lever pulled (coiling up the wires)\n", argv[1]);
         press_key(VK_SPACE);
         break;
       case CTRL_BLADE_PRESSED_R:
-        printf("[%s] Right handle: blade button pressed\n", DEVICE_PORT);
+        printf("[%s] Right handle: blade button pressed\n", argv[1]);
         break;
       case CTRL_XAXIS_RELEASED_L:
-        printf("[%s] Left handle: upper trigger released\n", DEVICE_PORT);
+        printf("[%s] Left handle: upper trigger released\n", argv[1]);
         break;
       case CTRL_ZAXIS_RELEASED_L:
-        printf("[%s] Left handle: lower trigger released\n", DEVICE_PORT);
+        printf("[%s] Left handle: lower trigger released\n", argv[1]);
         break;
       case CTRL_FHOOK_RELEASED_L:
-        printf("[%s] Left handle: lever released\n", DEVICE_PORT);
+        printf("[%s] Left handle: lever released\n", argv[1]);
         //Do not use, you can't stop a projectile in midair
         break;
       case CTRL_CHOOK_RELEASED_L:
-        printf("[%s] Left handle: lever released (coiling up the wires)\n", DEVICE_PORT);
+        printf("[%s] Left handle: lever released\n", argv[1]);
         release_key(VkKeyScanA(KEY_FIRELEFTHOOK));
         release_key(VK_SPACE);
         break;
       case CTRL_BLADE_RELEASED_L:
-        printf("[%s] Left handle / blade button released\n", DEVICE_PORT);
+        printf("[%s] Left handle: blade button released\n", argv[1]);
         break;
       case CTRL_XAXIS_RELEASED_R:
-        printf("[%s] Right handle / upper trigger released\n", DEVICE_PORT);
+        printf("[%s] Right handle: upper trigger released\n", argv[1]);
         break;
       case CTRL_ZAXIS_RELEASED_R:
-        printf("[%s] Right handle / lower trigger released\n", DEVICE_PORT);
+        printf("[%s] Right handle: lower trigger released\n", argv[1]);
         break;
       case CTRL_FHOOK_RELEASED_R:
-        printf("[%s] Right handle / lever released\n", DEVICE_PORT);
+        printf("[%s] Right handle: lever released\n", argv[1]);
         //Do not use, you can't stop a projectile in midair
         break;
       case CTRL_CHOOK_RELEASED_R:
-        printf("[%s] Right handle / lever pulled (coiling up the wires)\n", DEVICE_PORT);
+        printf("[%s] Right handle: lever pulled\n", argv[1]);
         release_key(VkKeyScanA(KEY_FIRERIGHTHOOK));
         release_key(VK_SPACE);
         break;
       case CTRL_BLADE_RELEASED_R:
-        printf("[%s] Right handle / blade button released\n", DEVICE_PORT);
+        printf("[%s] Right handle: blade button released\n", argv[1]);
         break;
       default:
         break;
