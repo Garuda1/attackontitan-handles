@@ -76,7 +76,6 @@ int main(int argc, char **argv)
   for (;;)
   {
     while (!RS232_PollComport(port, &data, sizeof(data)));
-    printf("Received %d\n", data);
 
     switch (data)
     {
@@ -125,7 +124,7 @@ int main(int argc, char **argv)
         //Do not use, you can't stop a projectile in midair
         break;
       case CTRL_CHOOK_RELEASED_L:
-        printf("[%s] Left handle: lever released\n", argv[1]);
+        printf("[%s] Left handle: lever released (detaching anchors)\n", argv[1]);
         release_key(VkKeyScanA(KEY_FIRELEFTHOOK));
         release_key(VK_SPACE);
         break;
@@ -143,7 +142,7 @@ int main(int argc, char **argv)
         //Do not use, you can't stop a projectile in midair
         break;
       case CTRL_CHOOK_RELEASED_R:
-        printf("[%s] Right handle: lever pulled\n", argv[1]);
+        printf("[%s] Right handle: lever released (detaching anchors)\n", argv[1]);
         release_key(VkKeyScanA(KEY_FIRERIGHTHOOK));
         release_key(VK_SPACE);
         break;
